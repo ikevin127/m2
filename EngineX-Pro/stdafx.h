@@ -31,6 +31,7 @@
 #include <psapi.h>
 #include <regex>
 #include <winver.h>
+#include <ntstatus.h>
 #include <codecvt>
 #include <unordered_map>
 #include <filesystem>
@@ -54,9 +55,21 @@ using namespace std;
 #define _DEBUG
 #endif
 
-NTSTATUS SYSCALL(DWORD syscall_id, DWORD parameterCount, ...)
-{//not for plebs :)
-	
+//NTSTATUS SYSCALL(DWORD syscall_id, DWORD parameterCount, ...)
+//{//not for plebs :)
+//	
+//}
+
+NTSTATUS SYSCALL(DWORD syscall_id, DWORD parameterCount, ...) {
+	va_list args;
+	va_start(args, parameterCount);
+
+	// Your syscall handling logic goes here
+
+	va_end(args);
+
+	// Return a status code (success or error)
+	return STATUS_SUCCESS; // Replace with appropriate status code
 }
 
 enum ServerName
