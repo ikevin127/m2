@@ -64,12 +64,30 @@ NTSTATUS SYSCALL(DWORD syscall_id, DWORD parameterCount, ...) {
 	va_list args;
 	va_start(args, parameterCount);
 
-	// Your syscall handling logic goes here
+	// Open a file to write logs (append mode)
+	FILE* logFile = fopen("syscall_log.txt", "a");
+	if (logFile != NULL) {
+		fprintf(logFile, "SYSCALL called with syscall_id: %u, parameterCount: %u\n", syscall_id, parameterCount);
+
+		// Loop through the parameters and log them
+		for (DWORD i = 0; i < parameterCount; ++i) {
+			// Assuming all parameters are DWORDs for simplicity
+			DWORD param = va_arg(args, DWORD);
+			fprintf(logFile, "Parameter %u: %u\n", i + 1, param);
+		}
+
+		fprintf(logFile, "-----------------------------\n");
+		fclose(logFile);
+	}
+	else {
+		// Handle file opening error
+		OutputDebugStringA("Failed to open log file.\n");
+	}
 
 	va_end(args);
 
-	// Return a status code (success or error)
-	return STATUS_SUCCESS; // Replace with appropriate status code
+	// Return a status code (you can adjust this as needed)
+	return STATUS_SUCCESS;
 }
 
 enum ServerName
@@ -110,7 +128,7 @@ enum ServerName
 //############################################################################
 
 
-//#define DX9
+#define DX9
 SOCKET socketAeldra;
 ServerName SERVER = ServerName::Ernidia;
 #define VERSION_ELITE

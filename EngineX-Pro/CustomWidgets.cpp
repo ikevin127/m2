@@ -478,7 +478,7 @@ void ImGui::CenterVertical(ImVec2 size)
 	SetCursorPos(ImVec2(pos.x, center.y));
 }
 
-void ImGui::ImageAuto(DirectTexture user_texture_id, float scale_width, float scale_height, bool center, const ImVec2& uv0, const ImVec2& uv1, const ImVec4& tint_col, const ImVec4& border_col) {
+/*void ImGui::ImageAuto(DirectTexture user_texture_id, float scale_width, float scale_height, bool center, const ImVec2& uv0, const ImVec2& uv1, const ImVec4& tint_col, const ImVec4& border_col) {
 	if (user_texture_id == NULL)
 		return;
 	D3DSURFACE_DESC desc;
@@ -492,34 +492,38 @@ void ImGui::ImageAuto(DirectTexture user_texture_id, float scale_width, float sc
 		}
 		ImGui::Image(user_texture_id, ImVec2(width, height), uv0, uv1, tint_col, border_col);
 	}
-}
+}*/
 
-void ImGui::ImageSwitcher(DirectTexture user_texture_id, const ImVec4& border_col) 
-{
-	if (user_texture_id == NULL)
-		return;
-	D3DSURFACE_DESC desc;
-	user_texture_id->GetLevelDesc(0, &desc);
-	float width = desc.Width;
-	float height = desc.Height;
-	if (width > 0 && height > 0) {;
-		ImVec2 size = ImVec2(width, height);
-		ImGuiWindow* window = GetCurrentWindow();
-		if (window->SkipItems)
-			return;
-
-		ImRect bb(window->DC.CursorPos, window->DC.CursorPos + size);
-		if (border_col.w > 0.0f)
-			bb.Max += ImVec2(2, 2);
-		ItemSize(bb);
-		if (!ItemAdd(bb, 0))
-			return;
-
-		window->DrawList->AddRectFilled(bb.Min, bb.Max, GetColorU32(border_col), 0.0f);
-		window->DrawList->AddImage(user_texture_id, bb.Min + ImVec2(1, 1), bb.Max - ImVec2(1, 1), ImVec2(0, 0), ImVec2(1, 1), GetColorU32(ImVec4(1, 1, 1, 1)));
-		//window->DrawList->AddImage(user_texture_id, bb.Min, bb.Max, uv0, uv1, GetColorU32(tint_col));
-	}
-}
+//void ImGui::ImageSwitcher(DirectTexture user_texture_id, const ImVec4& border_col) 
+//{
+//	if (user_texture_id == NULL)
+//		return;
+//	D3DSURFACE_DESC desc;
+//	user_texture_id->GetLevelDesc(0, &desc);
+//	float width = desc.Width;
+//	float height = desc.Height;
+//	const ImVec2& uv0 = ImVec2(0, 0);
+//	const ImVec2& uv1 = ImVec2(1, 1);
+//	const ImVec4& bg_col = ImVec4(0, 0, 0, 0);
+//	const ImVec4& tint_col = ImVec4(1, 1, 1, 1);
+//	if (width > 0 && height > 0) {;
+//		ImVec2 size = ImVec2(width, height);
+//		ImGuiWindow* window = GetCurrentWindow();
+//		if (window->SkipItems)
+//			return;
+//
+//		ImRect bb(window->DC.CursorPos, window->DC.CursorPos + size);
+//		if (border_col.w > 0.0f)
+//			bb.Max += ImVec2(2, 2);
+//		ItemSize(bb);
+//		if (!ItemAdd(bb, 0))
+//			return;
+//
+//		window->DrawList->AddRectFilled(bb.Min, bb.Max, GetColorU32(border_col), 0.0f);
+//		window->DrawList->AddImage(user_texture_id, bb.Min + ImVec2(1, 1), bb.Max - ImVec2(1, 1), ImVec2(0, 0), ImVec2(1, 1), GetColorU32(ImVec4(1, 1, 1, 1)));
+//		window->DrawList->AddImage(user_texture_id, bb.Min, bb.Max, uv0, uv1, GetColorU32(tint_col));
+//	}
+//}
 
 bool ImGui::PopupButton(const char* tooltip, ImTextureID texture, const ImVec2& size) {
 	int frame_padding = -1;

@@ -309,7 +309,7 @@ public:
 					{
 						int currentVnum = GameFunctions::PlayerGetItemIndex(TItemPos(INVENTORY, selectedSlots[0]));
 						DirectTexture D3DTexture = GameFunctionsCustom::GetD3DTexture(GetItemIconPath(currentVnum).c_str());
-						ImGui::ImageAuto(D3DTexture, 1.0f, 1.0f, true);
+						//ImGui::ImageAuto(D3DTexture, 1.0f, 1.0f, true);
 						const char* itemName = GameFunctions::ItemDataGetName(currentVnum);
 						ImVec2 label_size = ImGui::CalcTextSize(itemName, NULL, true);
 						ImGui::CenterHorizontal(label_size);
@@ -346,7 +346,7 @@ public:
 					ImGui::TableNextRow(ImGuiTableRowFlags_None, 100.0f);
 					ImGui::TableSetColumnIndex(0);
 					DirectTexture D3DTexture = GameFunctionsCustom::GetD3DTexture(GetItemIconPath(currentVnum).c_str());
-					ImGui::ImageSwitcher(D3DTexture, bonusSlotRunning[index] ? inactiveSwitcher : finishedSwitcher);
+					//ImGui::ImageSwitcher(D3DTexture, bonusSlotRunning[index] ? inactiveSwitcher : finishedSwitcher);
 					ImGui::TableSetColumnIndex(1);
 					ImGui::Text("Slot %d", bonusSlot[index] + 1);
 					if(ImGui::Button(IDName(ICON_FA_PLAY, index).c_str(), ImVec2(20.0f, 20.0f)))
@@ -378,7 +378,7 @@ public:
 					{
 						int currentVnum = GameFunctions::PlayerGetItemIndex(TItemPos(INVENTORY, bonusSlot[index]));
 						DirectTexture D3DTexture = GameFunctionsCustom::GetD3DTexture(GetItemIconPath(currentVnum).c_str());
-						ImGui::ImageAuto(D3DTexture, 1.0f, 1.0f, true);
+						//ImGui::ImageAuto(D3DTexture, 1.0f, 1.0f, true);
 						const char* itemName = GameFunctions::ItemDataGetName(currentVnum);
 						ImVec2 label_size = ImGui::CalcTextSize(itemName, NULL, true);
 						ImGui::CenterHorizontal(label_size);

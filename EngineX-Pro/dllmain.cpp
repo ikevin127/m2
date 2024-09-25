@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CheckHook.h"
-//#include "C:\Program Files\VMProtect Lite\Include\C\VMProtectSDK.h"
+#include "C:\Users\ketch\Downloads\m2\Extern\include\VMProtectSDK.h"
 
 extern "C" __declspec(dllexport) int dsf75sddc5s4d65c(void) {
 	return true;
@@ -26,7 +26,7 @@ void __stdcall NewSleep(DWORD miliseconds)
 {
 	Hooks::screenToClientHwBpHook = std::make_shared<PLH::HWBreakPointHook>((char*)&ScreenToClient, (char*)&Hooks::NewScreenToClient, GetCurrentThread());
 	Hooks::screenToClientHwBpHook->hook();
-	//Security::Initialize();
+	Security::Initialize();
 	sleepHook.Unhook();
 }
 void threadHookCheck()
@@ -90,7 +90,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 			{
 			//HANDLE xd = NULL;
 
-		//	LM_CreateFakeThread(xd);
+			//LM_CreateFakeThread(xd);
 
 			DisableThreadLibraryCalls(hModule);
 #ifdef DEVELOPER_MODE
@@ -99,11 +99,11 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 #ifdef _DEBUG
 					_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
-					//AllocConsole();
-					//freopen(XOR("CONOUT$"), "w", stdout);
+					AllocConsole();
+					freopen(XOR("CONOUT$"), "w", stdout);
 				}
 #endif
-			//	HANDLE xd = ProcessExtension::CreateThreadSafe((LPTHREAD_START_ROUTINE)&threadHookCheck, hModule);
+				HANDLE xd = ProcessExtension::CreateThreadSafe((LPTHREAD_START_ROUTINE)&threadHookCheck, hModule);
 				_set_se_translator(ErrorTranslator);
 		
 				Globals::hModule = hModule;
@@ -126,13 +126,13 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 					CloseHandle(hThreadInit);
 				}
 
-				//HANDLE hThread = nullptr;
-				//NTSTATUS ret = SYSCALL(0xBB, 11, &hThread, THREAD_ALL_ACCESS, 0, (HANDLE)-1, (LPTHREAD_START_ROUTINE)&Initialize, 0, 0, 0, 0, 0, 0);
-				//if (ret != 0 || hThread == nullptr)
-				//{
-				//	MessageBoxA(0, "error!", 0, 0);
-				//}
-				//CloseHandle(hThread);
+				HANDLE hThread = nullptr;
+				NTSTATUS ret = SYSCALL(0xBB, 11, &hThread, THREAD_ALL_ACCESS, 0, (HANDLE)-1, (LPTHREAD_START_ROUTINE)&Initialize, 0, 0, 0, 0, 0, 0);
+				if (ret != 0 || hThread == nullptr)
+				{
+					MessageBoxA(0, "error!", 0, 0);
+				}
+				CloseHandle(hThread);
 	
 				if (Globals::Server == ServerName::METINPL)
 				{
@@ -147,7 +147,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 				}
 				else
 				{
-					//sleepHook.Hook((uintptr_t)Sleep, (uintptr_t)NewSleep);
+					sleepHook.Hook((uintptr_t)Sleep, (uintptr_t)NewSleep);
 				}
 			}
 		case DLL_THREAD_ATTACH:
